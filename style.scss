@@ -1,0 +1,358 @@
+@mixin grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows:
+    14vh
+    1fr
+    14vh
+    1fr
+    14vh
+    1fr
+    14vh;
+  grid-template-columns:
+    14vh
+    1fr
+    14vh
+    1fr
+    14vh
+    1fr
+    14vh
+    1fr
+    14vh
+    1fr
+    14vh
+    1fr
+    14vh;
+  overflow: hidden;
+}
+html {
+  user-select: none;
+}
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.crash {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  .box {
+    width: 500px;
+    height: 300px;
+    background-color: rgb(255, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+  }
+}
+.container {
+  @include grid;
+  position: relative;
+}
+/* AUTO */
+.auto {
+  left: 1%;
+  top: 5%;
+  width: 8vh;
+  position: absolute;
+  transition: transform 0.5s;
+  z-index: 50;
+  .auto-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+/* HOME */
+.home {
+  right: 0;
+  bottom: 0;
+  width: 18vh;
+  position: absolute;
+  z-index: 50;
+}
+/* KLEBER */
+.kleber {
+  width: 4vh;
+  height: 4vh;
+  background: url("./img/kleber.png") no-repeat;
+  background-size: contain;
+  position: absolute;
+}
+/* ROAD - HORIZONTAL */
+.road-container {
+  @include grid;
+  position: absolute;
+
+  .road-h {
+    width: 100%;
+    background: url("./img/road-h.png");
+    background-size: contain;
+  }
+  .road-h-1 {
+    grid-row: 1/2;
+    grid-column: 2/5;
+  }
+  .road-h-2 {
+    grid-row: 1/2;
+    grid-column: 6/9;
+  }
+  .road-h-3 {
+    grid-row: 1/2;
+    grid-column: 10/13;
+  }
+  .road-h-4 {
+    grid-row: 3/4;
+    grid-column: 2/5;
+  }
+  .road-h-5 {
+    grid-row: 3/4;
+    grid-column: 6/9;
+  }
+  .road-h-6 {
+    grid-row: 3/4;
+    grid-column: 10/13;
+  }
+  .road-h-7 {
+    grid-row: 5/6;
+    grid-column: 2/5;
+  }
+  .road-h-8 {
+    grid-row: 5/6;
+    grid-column: 6/9;
+  }
+  .road-h-9 {
+    grid-row: 5/6;
+    grid-column: 10/13;
+  }
+  .road-h-10 {
+    grid-row: 7/9;
+    grid-column: 2/5;
+  }
+  .road-h-11 {
+    grid-row: 7/9;
+    grid-column: 6/9;
+  }
+  .road-h-12 {
+    grid-row: 7/9;
+    grid-column: 10/13;
+  }
+  /* ROAD - VERTICAL */
+  .road-v {
+    width: 100%;
+    background: url("./img/road-v.png");
+    background-size: cover;
+  }
+  .road-v-1 {
+    grid-row: 2/3;
+    grid-column: 1/2;
+  }
+  .road-v-2 {
+    grid-row: 4/5;
+    grid-column: 1/2;
+  }
+  .road-v-3 {
+    grid-row: 6/7;
+    grid-column: 1/2;
+  }
+  .road-v-4 {
+    grid-row: 2/3;
+    grid-column: 5/6;
+  }
+  .road-v-5 {
+    grid-row: 4/5;
+    grid-column: 5/6;
+  }
+  .road-v-6 {
+    grid-row: 6/7;
+    grid-column: 5/6;
+  }
+  .road-v-7 {
+    grid-row: 2/3;
+    grid-column: 9/10;
+  }
+  .road-v-8 {
+    grid-row: 4/5;
+    grid-column: 9/10;
+  }
+  .road-v-9 {
+    grid-row: 6/7;
+    grid-column: 9/10;
+  }
+  .road-v-10 {
+    grid-row: 2/3;
+    grid-column: 13/14;
+  }
+  .road-v-11 {
+    grid-row: 4/5;
+    grid-column: 13/14;
+  }
+  .road-v-12 {
+    grid-row: 6/7;
+    grid-column: 13/14;
+  }
+  /* ROAD - BLANK  */
+  .road-b {
+    width: 100%;
+    background: url("./img/road-blank.png");
+    background-size: cover;
+  }
+  .road-b-1 {
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+  .road-b-2 {
+    grid-row: 1/2;
+    grid-column: 5/6;
+  }
+  .road-b-3 {
+    grid-row: 1/2;
+    grid-column: 9/10;
+  }
+  .road-b-4 {
+    grid-row: 1/2;
+    grid-column: 13/14;
+  }
+  .road-b-5 {
+    grid-row: 3/4;
+    grid-column: 1/2;
+  }
+  .road-b-6 {
+    grid-row: 3/4;
+    grid-column: 5/6;
+  }
+  .road-b-7 {
+    grid-row: 3/4;
+    grid-column: 9/10;
+  }
+  .road-b-8 {
+    grid-row: 3/4;
+    grid-column: 13/14;
+  }
+  .road-b-9 {
+    grid-row: 5/6;
+    grid-column: 1/2;
+  }
+  .road-b-10 {
+    grid-row: 5/6;
+    grid-column: 5/6;
+  }
+  .road-b-11 {
+    grid-row: 5/6;
+    grid-column: 9/10;
+  }
+  .road-b-12 {
+    grid-row: 5/6;
+    grid-column: 13/14;
+  }
+  .road-b-13 {
+    grid-row: 7/8;
+    grid-column: 1/2;
+  }
+  .road-b-14 {
+    grid-row: 7/8;
+    grid-column: 5/6;
+  }
+  .road-b-15 {
+    grid-row: 7/8;
+    grid-column: 9/10;
+  }
+  .road-b-16 {
+    grid-row: 7/8;
+    grid-column: 13/14;
+  }
+}
+/* SAND */
+.sand-container {
+  @include grid;
+  position: absolute;
+  .sand {
+    width: 100%;
+    background: url("./img/sand.jpg");
+    background-size: cover;
+  }
+  .sand-1 {
+    grid-row: 2/3;
+    grid-column: 2 / span 3;
+  }
+  .sand-2 {
+    grid-row: 2/3;
+    grid-column: 6 / span 3;
+  }
+  .sand-3 {
+    grid-row: 2/3;
+    grid-column: 10 / span 3;
+  }
+  .sand-4 {
+    grid-row: 4/5;
+    grid-column: 2 / span 3;
+  }
+  .sand-5 {
+    grid-row: 4/5;
+    grid-column: 6 / span 3;
+  }
+  .sand-6 {
+    grid-row: 4/5;
+    grid-column: 10 / span 3;
+  }
+  .sand-7 {
+    grid-row: 6/7;
+    grid-column: 2 / span 3;
+  }
+  .sand-8 {
+    grid-row: 6/7;
+    grid-column: 6 / span 3;
+  }
+  .sand-9 {
+    grid-row: 6/7;
+    grid-column: 10 / span 3;
+    position: relative;
+  }
+}
+/* CYCLER */
+.cycler-container {
+  @include grid;
+  position: absolute;
+  .cycler {
+    width: 5vh;
+    height: 5vh;
+    background: url("./img/cycle.png");
+    background-size: contain;
+    position: absolute;
+    z-index: 50;
+  }
+  .cyclerToRight {
+    left: -5%;
+    top: 37%;
+    animation: toRight 15s linear infinite;
+  }
+  .cyclerToLeft {
+    transform: scaleX(-1);
+    right: -5%;
+    top: 0;
+    animation: toLeft 15s linear infinite;
+  }
+  .cyclerToTop {
+    right: 93.5%;
+    bottom: -5%;
+    transform: rotate(-90deg);
+    animation: toTop 15s linear infinite;
+  }
+  .cyclerToBottom {
+    right: 30%;
+    top: -5%;
+    transform: rotate(90deg);
+    animation: toBottom 15s linear infinite;
+  }
+}
+@import "keyframes";

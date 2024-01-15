@@ -1,0 +1,20 @@
+@keyframes toRight {
+  to {
+    left: 100%;
+  }
+}
+@keyframes toLeft {
+  to {
+    right: 100%;
+  }
+}
+@keyframes toTop {
+  to {
+    bottom: 100%;
+  }
+}
+@keyframes toBottom {
+  to {
+    top: 100%;
+  }
+}

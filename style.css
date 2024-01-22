@@ -7,6 +7,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background-color: #938780;
 }
 
 .crash {
@@ -14,7 +15,7 @@ body {
   height: 100%;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 100;
+  z-index: 1000;
   display: none;
   justify-content: center;
   align-items: center;
@@ -23,11 +24,28 @@ body {
   width: 500px;
   height: 300px;
   background-color: rgba(255, 0, 0, 0.5);
+  text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
   color: white;
-  font-size: 50px;
+}
+.crash .box .warning {
+  font-size: 35px;
+  display: none;
+  margin: 0;
+}
+.crash .box .sign {
+  height: 50%;
+  border: dashed yellow 2px;
+  border-radius: 20px;
+  display: block;
+}
+.crash .box .start-again {
+  font-size: 25px;
+  margin: 0;
 }
 
 .container {
@@ -44,7 +62,8 @@ body {
 .auto {
   left: 1%;
   top: 5%;
-  width: 8vh;
+  width: 9vh;
+  height: 4vh;
   position: absolute;
   transition: transform 0.5s;
   z-index: 50;
@@ -271,40 +290,43 @@ body {
   overflow: hidden;
   position: absolute;
 }
-.sand-container .sand {
-  width: 100%;
-  background: url("./img/sand.jpg");
-  background-size: cover;
-}
 .sand-container .sand-1 {
+  background: url("./img/houses.png");
   grid-row: 2/3;
   grid-column: 2/span 3;
 }
 .sand-container .sand-2 {
+  background: url("./img/park.png");
   grid-row: 2/3;
   grid-column: 6/span 3;
 }
 .sand-container .sand-3 {
+  background: url("./img/houses.png");
   grid-row: 2/3;
   grid-column: 10/span 3;
 }
 .sand-container .sand-4 {
+  background: url("./img/park.png");
   grid-row: 4/5;
   grid-column: 2/span 3;
 }
 .sand-container .sand-5 {
+  background: url("./img/houses.png");
   grid-row: 4/5;
   grid-column: 6/span 3;
 }
 .sand-container .sand-6 {
+  background: url("./img/park.png");
   grid-row: 4/5;
   grid-column: 10/span 3;
 }
 .sand-container .sand-7 {
+  background: url("./img/houses.png");
   grid-row: 6/7;
   grid-column: 2/span 3;
 }
 .sand-container .sand-8 {
+  background: url("./img/park.png");
   grid-row: 6/7;
   grid-column: 6/span 3;
 }
@@ -312,6 +334,11 @@ body {
   grid-row: 6/7;
   grid-column: 10/span 3;
   position: relative;
+}
+.sand-container .sand {
+  width: 100%;
+  background-size: contain;
+  background-position: center;
 }
 
 /* CYCLER */

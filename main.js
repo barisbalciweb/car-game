@@ -61,7 +61,9 @@ sandArray.forEach((element) => {
 });
 
 // KLEBER
-for (let i = 0; i < 10; i++) {
+let kleberPosition;
+let kleberPositionArray = [];
+for (let i = 0; i < 20; i++) {
   let kleber = document.createElement("div");
   document.getElementById("container").appendChild(kleber);
   kleber.setAttribute("class", `kleber kleber-${i}`);
@@ -78,7 +80,7 @@ for (let i = 0; i < 10; i++) {
   kleber.style.left = `${rondomNrLeft}px`;
   kleber.style.top = `${rondomNrTop}px`;
 
-  let kleberPosition = kleber.getBoundingClientRect();
+  kleberPosition = kleber.getBoundingClientRect();
 
   let kleberLeft = kleberPosition.left;
   let kleberWidth = kleberPosition.width;
@@ -88,6 +90,7 @@ for (let i = 0; i < 10; i++) {
   let kleberHeight = kleberPosition.height;
   let kleberTotalY = kleberTop + kleberHeight;
 
+  //---- hide kleber
   for (let e = 0; e < sandPositions.length; e++) {
     if (
       kleberTotalX > sandPositions[e].left &&
@@ -95,62 +98,28 @@ for (let i = 0; i < 10; i++) {
       kleberTotalY > sandPositions[e].top &&
       kleberTop < sandPositions[e].top + sandPositions[e].height
     ) {
-      kleber.style.display = "none";
+      kleber.remove();
     }
   }
 }
 
-//CYCLER-MOVEMENT
-function move(
-  toRight,
-  toLeft,
-  toTop,
-  toBottom,
-  posR1,
-  posR2,
-  posL1,
-  posL2,
-  posT1,
-  posT2,
-  posB1,
-  posB2,
-  intTime1,
-  intTime2
-) {
-  //MOVEMENT
-  setInterval(() => {
-    document.getElementById(toRight).style.top = posR1;
-    document.getElementById(toLeft).style.top = posL1;
-    document.getElementById(toTop).style.right = posT1;
-    document.getElementById(toBottom).style.right = posB1;
-  }, intTime1);
+//GET THE POSITIONS OF THE REST OF KLEBERS ARE NOT HIDDEN
+let kleber = document.getElementsByClassName("kleber");
+let kleberArray = Array.from(kleber);
+kleberArray.forEach((element) => {
+  kleberPositionArray.push(element.getBoundingClientRect());
+});
 
-  setInterval(() => {
-    document.getElementById(toRight).style.top = posR2;
-    document.getElementById(toLeft).style.top = posL2;
-    document.getElementById(toTop).style.right = posT2;
-    document.getElementById(toBottom).style.right = posB2;
-  }, intTime2);
+//CYCLER-MOVEMENT
+function move(toRight, toLeft, toTop, toBottom, posR, posL, posT, posB) {
+  document.getElementById(toRight).style.top = posR;
+  document.getElementById(toLeft).style.top = posL;
+  document.getElementById(toTop).style.right = posT;
+  document.getElementById(toBottom).style.right = posB;
 }
-move(
-  "cyclerToRight",
-  "cyclerToLeft",
-  "cyclerToTop",
-  "cyclerToBottom",
-  "65.5%",
-  "37%",
-  "85%",
-  "0",
-  "25%",
-  "93.5%",
-  "30%",
-  "30%",
-  15000,
-  30000
-);
 
 //CHECK
-let checkInterval = setInterval(check, 100);
+let checkInterval = setInterval(check, 10);
 function check() {
   let autoPosition = auto.getBoundingClientRect();
   let autoLeft = autoPosition.left;
@@ -159,7 +128,7 @@ function check() {
   let autoHeight = autoPosition.height;
   let autoTotalX = autoLeft + autoWidth;
   let autoTotalY = autoTop + autoHeight;
-  // SCREEN LIMITS
+  // ----screen limits
   if (
     autoTop < 0 ||
     autoTop > window.innerHeight ||
@@ -170,8 +139,7 @@ function check() {
     clearInterval(autoMovInt);
     return;
   }
-
-  // ENTERING ON SAND
+  // ----entering on sand
   for (let i = 0; i < sandPositions.length; i++) {
     if (
       autoTotalX > sandPositions[i].left &&
@@ -182,6 +150,7 @@ function check() {
       document.getElementById("crash").style.display = "flex";
       document.getElementById("sign").style.display = "none";
       document.getElementById("warning").style.display = "block";
+      document.getElementById("hit").setAttribute("class", "hit");
 
       clearInterval(autoMovInt);
       clearInterval(checkInterval);
@@ -189,4 +158,57 @@ function check() {
       break;
     }
   }
+  // ----crash with kleber
+  kleberPositionArray.forEach((kleber) => {
+    if (
+      autoTotalX > kleber.left &&
+      autoLeft < kleber.left + kleber.width &&
+      autoTotalY > kleber.top &&
+      autoTop < kleber.top + kleber.height
+    ) {
+      crash();
+    }
+  });
+  // ----crash with cycler
+  let cycler = document.getElementsByClassName("cycler");
+  let cyclerArray = Array.from(cycler);
+  let cyclerPositionsArray = [];
+
+  cyclerArray.forEach((element) => {
+    cyclerPositionsArray.push(element.getBoundingClientRect());
+  });
+
+  for (let i = 0; i < cyclerPositionsArray.length; i++) {
+    if (
+      autoTotalX > cyclerPositionsArray[i].left &&
+      autoLeft < cyclerPositionsArray[i].left + cyclerPositionsArray[i].width &&
+      autoTotalY > cyclerPositionsArray[i].top &&
+      autoTop < cyclerPositionsArray[i].top + cyclerPositionsArray[i].height
+    ) {
+      crash("cycler", cyclerArray[i]);
+    }
+  }
 }
+
+//CRASH
+const crash = (input1, input2) => {
+  clearInterval(autoMovInt);
+  clearInterval(checkInterval);
+
+  setTimeout(warning, 1500);
+
+  function warning() {
+    document.getElementById("crash").style.display = "flex";
+    document.getElementById("sign").style.display = "none";
+    document.getElementById("warning").style.display = "block";
+  }
+
+  document.getElementById("hit").setAttribute("class", "hit");
+
+  isKeyFree = false;
+
+  if (input1 === "cycler") {
+    input2.style.animationPlayState = "paused";
+    document.getElementById("hit").setAttribute("class", "hit");
+  }
+};

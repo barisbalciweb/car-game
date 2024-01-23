@@ -18,3 +18,17 @@
     top: 100%;
   }
 }
+@keyframes crash {
+  25% {
+    transform: translateY(50px);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  75% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}

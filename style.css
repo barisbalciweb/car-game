@@ -10,6 +10,18 @@ body {
   background-color: #938780;
 }
 
+.hit {
+  background-color: red;
+  position: absolute;
+  z-index: 200;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.5s;
+}
+
 .crash {
   width: 100%;
   height: 100%;
@@ -362,25 +374,25 @@ body {
 .cycler-container .cyclerToRight {
   left: -5%;
   top: 37%;
-  animation: toRight 15s linear infinite;
+  animation: toRight 15s linear infinite forwards;
 }
 .cycler-container .cyclerToLeft {
   transform: scaleX(-1);
   right: -5%;
   top: 0;
-  animation: toLeft 15s linear infinite;
+  animation: toLeft 15s linear infinite forwards;
 }
 .cycler-container .cyclerToTop {
   right: 93.5%;
   bottom: -5%;
   transform: rotate(-90deg);
-  animation: toTop 15s linear infinite;
+  animation: toTop 15s linear infinite forwards;
 }
 .cycler-container .cyclerToBottom {
   right: 30%;
   top: -5%;
   transform: rotate(90deg);
-  animation: toBottom 15s linear infinite;
+  animation: toBottom 15s linear infinite forwards;
 }
 
 @keyframes toRight {
@@ -401,6 +413,20 @@ body {
 @keyframes toBottom {
   to {
     top: 100%;
+  }
+}
+@keyframes crash {
+  25% {
+    transform: translateY(50px);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  75% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(-50px);
   }
 }
 

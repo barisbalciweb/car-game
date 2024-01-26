@@ -1,102 +1,116 @@
-//AUTO
-let auto = document.getElementById("auto");
-let autoImg = document.getElementById("auto-img");
+//KEYS
+let areKeysFree = true;
+let isEnterKeyFree = false;
 
-let autoPosition = auto.getBoundingClientRect();
-let autoLeft = autoPosition.left;
-let autoTop = autoPosition.top;
-let autoTotalX = autoLeft + autoPosition.width;
-let autoTotalY = autoTop + autoPosition.height;
+//car
+let car = document.getElementById("auto");
+let carImg = document.getElementById("auto-img");
 
-let isKeyFree = true;
+let carPosition = car.getBoundingClientRect();
+let carLeft = carPosition.left;
+let carTop = carPosition.top;
+let carLeftAndWidth = carLeft + carPosition.width;
+let carTopAndHeight = carTop + carPosition.height;
 
-let autoMovInt;
-let speed = 30;
+let carMovInt;
+let carSpeed = 25;
 let distance = 5;
+
+//KLEBER
+let kleberPos;
+let kleberPosArray = [];
 
 //KEY-DIRECTION-MOVEMENT
 document.addEventListener("keydown", (event) => {
-  if (isKeyFree === true) {
-    clearInterval(autoMovInt);
+  if (areKeysFree === true) {
+    clearInterval(carMovInt);
     let keyPressed = event.key;
     switch (keyPressed) {
       case "ArrowRight":
-        auto.style.transform = "rotate(0)";
-        autoMovInt = setInterval(() => {
-          auto.style.left = autoLeft + distance + "px";
-          autoLeft += distance;
-        }, speed);
+        car.style.transform = "rotate(0)";
+        carMovInt = setInterval(() => {
+          car.style.left = carLeft + distance + "px";
+          carLeft += distance;
+          document.getElementById("hint").style.display = "none";
+        }, carSpeed);
         break;
       case "ArrowLeft":
-        auto.style.transform = "rotate(0)";
-        autoMovInt = setInterval(() => {
-          auto.style.left = autoLeft - distance + "px";
-          autoLeft -= distance;
-        }, speed);
+        car.style.transform = "rotate(0)";
+        carMovInt = setInterval(() => {
+          car.style.left = carLeft - distance + "px";
+          carLeft -= distance;
+          document.getElementById("hint").style.display = "none";
+        }, carSpeed);
         break;
       case "ArrowDown":
-        auto.style.transform = "rotate(90deg)";
-        autoMovInt = setInterval(() => {
-          auto.style.top = autoTop + distance + "px";
-          autoTop += distance;
-        }, speed);
+        car.style.transform = "rotate(90deg)";
+        carMovInt = setInterval(() => {
+          car.style.top = carTop + distance + "px";
+          carTop += distance;
+          document.getElementById("hint").style.display = "none";
+        }, carSpeed);
         break;
       case "ArrowUp":
-        auto.style.transform = "rotate(-90deg)";
-        autoMovInt = setInterval(() => {
-          auto.style.top = autoTop - distance + "px";
-          autoTop -= distance;
-        }, speed);
+        car.style.transform = "rotate(-90deg)";
+        carMovInt = setInterval(() => {
+          car.style.top = carTop - distance + "px";
+          carTop -= distance;
+          document.getElementById("hint").style.display = "none";
+        }, carSpeed);
+        break;
+      case "Enter":
+        location.reload();
         break;
     }
   }
 });
 
-//SAND
-let sand = document.getElementsByClassName("sand");
-let sandArray = Array.from(sand);
-let sandPositions = [];
-sandArray.forEach((element) => {
-  sandPositions.push(element.getBoundingClientRect());
+document.addEventListener("keydown", (event) => {
+  let keyPressed = event.key;
+  if (keyPressed === "Enter" && isEnterKeyFree === true) {
+    location.reload();
+  }
 });
 
-// KLEBER
-let kleberPosition;
-let kleberPositionArray = [];
-for (let i = 0; i < 20; i++) {
+//GET FIELD POSITIONS
+let field = document.getElementsByClassName("sand");
+let fieldArray = Array.from(field);
+let fieldPosArray = [];
+fieldArray.forEach((element) => {
+  fieldPosArray.push(element.getBoundingClientRect());
+});
+
+//CREATE KLEBERS AND GET POSITIONS
+for (let i = 0; i < 40; i++) {
   let kleber = document.createElement("div");
   document.getElementById("container").appendChild(kleber);
-  kleber.setAttribute("class", `kleber kleber-${i}`);
-
+  kleber.setAttribute("class", `obstacle kleber kleber-${i}`);
   let kleberSizes = kleber.getBoundingClientRect();
-
-  let rondomNrLeft = Math.floor(
-    Math.random() * (window.innerWidth - kleberSizes.width - 0 + 1)
+  let rondomNr1 = Math.floor(
+    Math.random() * (window.innerWidth - kleberSizes.width - 0 + 1) + 0
   );
-  let rondomNrTop = Math.floor(
-    Math.random() * (window.innerHeight - kleberSizes.height - 0 + 1)
+  let rondomNr2 = Math.floor(
+    Math.random() * (window.innerHeight - kleberSizes.height - 100 + 1) + 100
   );
 
-  kleber.style.left = `${rondomNrLeft}px`;
-  kleber.style.top = `${rondomNrTop}px`;
+  kleber.style.left = `${rondomNr1}px`;
+  kleber.style.top = `${rondomNr2}px`;
 
-  kleberPosition = kleber.getBoundingClientRect();
+  kleberPos = kleber.getBoundingClientRect();
+  let kleberLeft = kleberPos.left;
+  let kleberWidth = kleberPos.width;
+  let kleberLeftAndWidth = kleberLeft + kleberWidth;
+  let kleberTop = kleberPos.top;
+  let kleberHeight = kleberPos.height;
+  let kleberTopAndHeight = kleberTop + kleberHeight;
 
-  let kleberLeft = kleberPosition.left;
-  let kleberWidth = kleberPosition.width;
-  let kleberTotalX = kleberLeft + kleberWidth;
-
-  let kleberTop = kleberPosition.top;
-  let kleberHeight = kleberPosition.height;
-  let kleberTotalY = kleberTop + kleberHeight;
-
-  //---- hide kleber
-  for (let e = 0; e < sandPositions.length; e++) {
+  //---- hide klebers on field
+  for (let e = 0; e < fieldPosArray.length; e++) {
     if (
-      kleberTotalX > sandPositions[e].left &&
-      kleberLeft < sandPositions[e].left + sandPositions[e].width &&
-      kleberTotalY > sandPositions[e].top &&
-      kleberTop < sandPositions[e].top + sandPositions[e].height
+      kleberLeftAndWidth > fieldPosArray[e].left &&
+      kleberLeft < fieldPosArray[e].left + fieldPosArray[e].width &&
+      kleberTopAndHeight > fieldPosArray[e].top &&
+      kleberTop < fieldPosArray[e].top + fieldPosArray[e].height
     ) {
       kleber.remove();
     }
@@ -107,108 +121,113 @@ for (let i = 0; i < 20; i++) {
 let kleber = document.getElementsByClassName("kleber");
 let kleberArray = Array.from(kleber);
 kleberArray.forEach((element) => {
-  kleberPositionArray.push(element.getBoundingClientRect());
+  kleberPosArray.push(element.getBoundingClientRect());
 });
-
-//CYCLER-MOVEMENT
-function move(toRight, toLeft, toTop, toBottom, posR, posL, posT, posB) {
-  document.getElementById(toRight).style.top = posR;
-  document.getElementById(toLeft).style.top = posL;
-  document.getElementById(toTop).style.right = posT;
-  document.getElementById(toBottom).style.right = posB;
-}
 
 //CHECK
 let checkInterval = setInterval(check, 10);
 function check() {
-  let autoPosition = auto.getBoundingClientRect();
-  let autoLeft = autoPosition.left;
-  let autoTop = autoPosition.top;
-  let autoWidth = autoPosition.width;
-  let autoHeight = autoPosition.height;
-  let autoTotalX = autoLeft + autoWidth;
-  let autoTotalY = autoTop + autoHeight;
+  let carPosition = car.getBoundingClientRect();
+  let carLeft = carPosition.left;
+  let carTop = carPosition.top;
+  let carWidth = carPosition.width;
+  let carHeight = carPosition.height;
+  let carLeftAndWidth = carLeft + carWidth;
+  let carTopAndHeight = carTop + carHeight;
   // ----screen limits
   if (
-    autoTop < 0 ||
-    autoTop > window.innerHeight ||
-    autoLeft < 0 ||
-    autoLeft > window.innerWidth
+    carTop + carHeight / 2 < 0 ||
+    carTop + carHeight / 2 > window.innerHeight ||
+    carLeft + carWidth / 2 < 0 ||
+    carLeft + carWidth / 2 > window.innerWidth
   ) {
-    document.getElementById("crash").style.display = "flex";
-    clearInterval(autoMovInt);
+    document.getElementById("background-crash").style.display = "flex";
+    document.getElementById("hint").style.display = "none";
+    clearInterval(carMovInt);
+    clearInterval(checkInterval);
+    areKeysFree = false;
+    isEnterKeyFree = true;
     return;
   }
-  // ----entering on sand
-  for (let i = 0; i < sandPositions.length; i++) {
+  // ----entering on field
+  for (let i = 0; i < fieldPosArray.length; i++) {
     if (
-      autoTotalX > sandPositions[i].left &&
-      autoLeft < sandPositions[i].left + sandPositions[i].width &&
-      autoTotalY > sandPositions[i].top &&
-      autoTop < sandPositions[i].top + sandPositions[i].height
+      carLeftAndWidth - carWidth / 2 > fieldPosArray[i].left &&
+      carLeft + carWidth / 2 < fieldPosArray[i].left + fieldPosArray[i].width &&
+      carTopAndHeight - carHeight / 2 > fieldPosArray[i].top &&
+      carTop + carHeight / 2 < fieldPosArray[i].top + fieldPosArray[i].height
     ) {
-      document.getElementById("crash").style.display = "flex";
-      document.getElementById("sign").style.display = "none";
-      document.getElementById("warning").style.display = "block";
-      document.getElementById("hit").setAttribute("class", "hit");
-
-      clearInterval(autoMovInt);
-      clearInterval(checkInterval);
-      isKeyFree = false;
+      crash();
       break;
     }
   }
-  // ----crash with kleber
-  kleberPositionArray.forEach((kleber) => {
+  // ----accident
+  let obstacles = document.getElementsByClassName("obstacle");
+  let obstaclesArray = Array.from(obstacles);
+  let obstaclesPosArray = [];
+  obstaclesArray.forEach((element) => {
+    obstaclesPosArray.push(element.getBoundingClientRect());
+  });
+  for (let i = 0; i < obstaclesPosArray.length; i++) {
     if (
-      autoTotalX > kleber.left &&
-      autoLeft < kleber.left + kleber.width &&
-      autoTotalY > kleber.top &&
-      autoTop < kleber.top + kleber.height
+      carLeftAndWidth - carWidth / 4 > obstaclesPosArray[i].left &&
+      carLeft + carWidth / 4 <
+        obstaclesPosArray[i].left + obstaclesPosArray[i].width &&
+      carTopAndHeight - carHeight / 4 > obstaclesPosArray[i].top &&
+      carTop + carHeight / 4 <
+        obstaclesPosArray[i].top + obstaclesPosArray[i].height
     ) {
       crash();
     }
-  });
-  // ----crash with cycler
-  let cycler = document.getElementsByClassName("cycler");
-  let cyclerArray = Array.from(cycler);
-  let cyclerPositionsArray = [];
-
-  cyclerArray.forEach((element) => {
-    cyclerPositionsArray.push(element.getBoundingClientRect());
-  });
-
-  for (let i = 0; i < cyclerPositionsArray.length; i++) {
-    if (
-      autoTotalX > cyclerPositionsArray[i].left &&
-      autoLeft < cyclerPositionsArray[i].left + cyclerPositionsArray[i].width &&
-      autoTotalY > cyclerPositionsArray[i].top &&
-      autoTop < cyclerPositionsArray[i].top + cyclerPositionsArray[i].height
-    ) {
-      crash("cycler", cyclerArray[i]);
-    }
+  }
+  // ----success
+  let home = document.getElementById("info");
+  let homePos = home.getBoundingClientRect();
+  if (
+    carLeft > homePos.left &&
+    carLeftAndWidth < homePos.left + homePos.width &&
+    carTop > homePos.top &&
+    carTopAndHeight < homePos.top + homePos.height
+  ) {
+    success();
   }
 }
 
-//CRASH
-const crash = (input1, input2) => {
-  clearInterval(autoMovInt);
+//CRASH-FUNCTION
+const crash = (input) => {
+  clearInterval(carMovInt);
   clearInterval(checkInterval);
-
-  setTimeout(warning, 1500);
-
+  setTimeout(warning, 1000);
   function warning() {
-    document.getElementById("crash").style.display = "flex";
+    document.getElementById("background-crash").style.display = "flex";
     document.getElementById("sign").style.display = "none";
     document.getElementById("warning").style.display = "block";
   }
-
   document.getElementById("hit").setAttribute("class", "hit");
+  document.getElementById("hint").style.display = "none";
 
-  isKeyFree = false;
+  stopAnimation();
 
-  if (input1 === "cycler") {
-    input2.style.animationPlayState = "paused";
-    document.getElementById("hit").setAttribute("class", "hit");
-  }
+  areKeysFree = false;
+  isEnterKeyFree = true;
 };
+
+const success = () => {
+  clearInterval(carMovInt);
+  clearInterval(checkInterval);
+  document.getElementById("background-success").style.display = "flex";
+
+  stopAnimation();
+
+  areKeysFree = false;
+  isEnterKeyFree = true;
+};
+
+function stopAnimation() {
+  document.getElementById("cyclerToRight").style.animationPlayState = "paused";
+  document.getElementById("cyclerToLeft").style.animationPlayState = "paused";
+  document.getElementById("cyclerToTop").style.animationPlayState = "paused";
+  document.getElementById("cyclerToBottom").style.animationPlayState = "paused";
+  document.getElementById("krankenwagen").style.animationPlayState = "paused";
+  document.getElementById("polizei").style.animationPlayState = "paused";
+}

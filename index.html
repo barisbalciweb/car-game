@@ -4,16 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
-    <title>Snake</title>
+    <title>Ich will nach Hause!</title>
   </head>
   <body>
     <div id="container" class="container">
+      <div class="copyright">Created by Barış Balcı</div>
+      <div class="screen-size">
+        <p>
+          This game is optimized for desktop browsers and works best in
+          full-screen mode.
+        </p>
+      </div>
+
       <div id="hit"></div>
-      <div id="crash" class="crash">
-        <div id="box" class="box">
+
+      <div id="background-crash" class="background-crash">
+        <div id="box-crash" class="box box-crash">
           <img id="sign" class="sign" src="./img/verlassen.jpg" />
-          <p id="warning" class="warning">Vorsicht!</p>
-          <p class="start-again">Press enter to start again</p>
+          <p id="warning" class="warning">Oops!</p>
+          <p class="start-again">Press <b>enter</b> to start again</p>
+        </div>
+      </div>
+
+      <div id="background-success" class="background-success">
+        <div id="box-success" class="box box-success">
+          <p id="warning" class="warning">Willkommen!</p>
+          <p class="start-again">Press <b>enter</b> to play again</p>
         </div>
       </div>
 
@@ -21,19 +37,44 @@
         <img id="auto-img" class="auto-img" src="./img/auto.png" />
       </div>
 
+      <div id="polizei" class="polizei">
+        <img class="obstacle polizei-img" src="./img/polizei.png" />
+      </div>
+
+      <div id="krankenwagen" class="krankenwagen">
+        <img class="obstacle krankenwagen-img" src="./img/krankenwagen.png" />
+      </div>
+
       <div class="road-container">
-        <div class="road-h road-h-1"></div>
-        <div class="road-h road-h-2"></div>
+        <div class="road-h road-h-1">
+          <p id="hint" class="info hint">
+            Use the <b>arrow keys</b> to move <br />
+            and <br />
+            the <b>space bar</b> to brake
+          </p>
+        </div>
+        <div class="road-h road-h-2">
+          <img class="obstacle bauarbeiten" src="./img/bauarbeiten.png" />
+        </div>
         <div class="road-h road-h-3"></div>
-        <div class="road-h road-h-4"></div>
+        <div class="road-h road-h-4">
+          <img class="obstacle bauarbeiten" src="./img/bauarbeiten.png" />
+        </div>
         <div class="road-h road-h-5"></div>
         <div class="road-h road-h-6"></div>
         <div class="road-h road-h-7"></div>
-        <div class="road-h road-h-8"></div>
+        <div class="road-h road-h-8">
+          <img class="obstacle bauarbeiten" src="./img/bauarbeiten.png" />
+        </div>
         <div class="road-h road-h-9"></div>
-        <div class="road-h road-h-10"></div>
+        <div class="road-h road-h-10">
+          <img class="obstacle bauarbeiten" src="./img/bauarbeiten.png" />
+        </div>
         <div class="road-h road-h-11"></div>
-        <div class="road-h road-h-12"></div>
+        <div class="road-h road-h-12">
+          <img class="obstacle bauarbeiten" src="./img/bauarbeiten.png" />
+          <p id="info" class="info homeplace">Home sweet home &#128151;</p>
+        </div>
         <div class="road-v road-v-1"></div>
         <div class="road-v road-v-2"></div>
         <div class="road-v road-v-3"></div>
@@ -46,7 +87,7 @@
         <div class="road-v road-v-10"></div>
         <div class="road-v road-v-11"></div>
         <div class="road-v road-v-12"></div>
-        <div class="road-b road-b-1"></div>
+        <div id="road-b-1" class="road-b road-b-1"></div>
         <div class="road-b road-b-2"></div>
         <div class="road-b road-b-3"></div>
         <div class="road-b road-b-4"></div>
@@ -79,10 +120,10 @@
       </div>
 
       <div class="cycler-container">
-        <div id="cyclerToRight" class="cycler cyclerToRight"></div>
-        <div id="cyclerToLeft" class="cycler cyclerToLeft"></div>
-        <div id="cyclerToTop" class="cycler cyclerToTop"></div>
-        <div id="cyclerToBottom" class="cycler cyclerToBottom"></div>
+        <div id="cyclerToRight" class="obstacle cycler cyclerToRight"></div>
+        <div id="cyclerToLeft" class="obstacle cycler cyclerToLeft"></div>
+        <div id="cyclerToTop" class="obstacle cycler cyclerToTop"></div>
+        <div id="cyclerToBottom" class="obstacle cycler cyclerToBottom"></div>
       </div>
     </div>
     <script src="./main.js"></script>

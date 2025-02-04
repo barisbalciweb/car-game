@@ -1,4 +1,4 @@
-# [https://barisbalcimusic.github.io/car-game/](https://barisbalcimusic.github.io/car-game/)
+# [https://barisbalcimusic.github.io/car-game/](https://barisbalciweb.github.io/car-game/)
 
 My first attempt at developing a real game with DOM Manipulation. (Jan 26, 2024)
 
